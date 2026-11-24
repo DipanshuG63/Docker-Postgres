@@ -146,4 +146,3 @@ vite.config.ts.timestamp-*
 tasks.db
 tasks.db-shm
 tasks.db-wal
-*.zip
