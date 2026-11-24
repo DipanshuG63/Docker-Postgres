@@ -14,7 +14,7 @@ A Node.js and Express REST API that continues the earlier CRUD API work. Postgre
 
 ## Requirements
 
-- Node.js 22+ and npm
+- Node.js 18+ and npm
 - Docker Desktop with Docker Compose
 - A Supabase project (free tier is sufficient)
 
@@ -104,9 +104,25 @@ Example request body (use your own test account; never put real credentials in s
 
 The current logout endpoint is protected and returns `204 No Content`. It acknowledges that the client has logged out; the client must discard its access and refresh tokens. Supabase access tokens are stateless JWTs, so this endpoint does not instantly invalidate an already-issued access token. A token may remain valid until expiry unless a server-side revocation strategy is implemented. This limitation is documented rather than claiming that the JWT has been revoked.
 
-## Swagger verification
+## Swagger screenshots
 
-Capture actual signup, login, protected profile and logout responses using Swagger UI. Redact tokens, passwords and account identifiers before sharing. No screenshots were included in this upload.
+The following screenshots were captured from the local Swagger UI test session. Account identifiers and login response details have been redacted for privacy.
+
+### Signup — 201 Created
+
+![Signup response](screenshots/signup.png)
+
+### Login — 200 OK
+
+![Login response](screenshots/login.png)
+
+### Protected profile — 200 OK
+
+![Protected profile response](screenshots/protected-profile.png)
+
+### Logout — 204 No Content
+
+![Logout response](screenshots/logout.png)
 
 ## Existing task API (retained)
 
@@ -128,7 +144,7 @@ Run the Node test suite:
 npm test
 ```
 
-The included tests check configuration and OpenAPI structure without external services. Live PostgreSQL and Supabase integration must be verified locally.
+The PostgreSQL CRUD integration test is skipped unless `TEST_DATABASE_URL` points to a disposable test database. Do not point it at data you need to keep. The auth endpoints were manually exercised through Swagger UI during this assignment; the screenshots above record the observed success responses.
 
 ## Security checklist
 
@@ -141,4 +157,4 @@ The included tests check configuration and OpenAPI structure without external se
 
 ## Publishing checklist
 
-This public repository contains the project import and configuration improvements. Keep `.env` out of every commit. The supplied lockfile was from an older SQLite project; run `npm install` locally to generate a matching `package-lock.json`, then commit it. Task CRUD and reset are intentionally public for this exercise; protect them before production deployment.
+Create a **public** GitHub repository and push the project. The assignment asks for at least six meaningful commits, one for each of Stages 0–6. Use honest incremental commits while developing; do not manufacture historical commits after the work is complete. Keep `.env` out of every commit and inspect the repository before publishing.
