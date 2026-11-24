@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev}
       POSTGRES_DB: tasks
     ports:
-      - "127.0.0.1:5432:5432"
+      - "5432:5432"
     volumes:
       - taskdata:/var/lib/postgresql
     healthcheck:
@@ -18,12 +18,12 @@ services:
   api:
     build: .
     ports:
-      - "127.0.0.1:3000:3000"
+      - "3000:3000"
     environment:
       DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-dev}@db:5432/tasks
       PORT: 3000
-      SUPABASE_URL: ${SUPABASE_URL:-}
-      SUPABASE_KEY: ${SUPABASE_KEY:-}
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_KEY: ${SUPABASE_KEY}
     depends_on:
       db:
         condition: service_healthy
