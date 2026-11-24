@@ -23,7 +23,6 @@ const supabase = supabaseUrl && supabaseKey
     })
   : null;
 
-app.disable('x-powered-by');
 app.use(express.json());
 
 async function initializeDatabase() {
@@ -246,13 +245,6 @@ app.delete('/tasks/:id', async (req, res) => {
   const result = await pool.query('DELETE FROM tasks WHERE id = $1', [id]);
   if (result.rowCount === 0) return res.status(404).json({ error: `Task ${id} not found` });
   res.status(204).send();
-});
-
-app.use((err, req, res, next) => {
-  if (res.headersSent) return next(err);
-  if (err.status === 400) return res.status(400).json({ error: 'Invalid request' });
-  console.error('Request failed:', err.name);
-  res.status(500).json({ error: 'Internal server error' });
 });
 
 if (require.main === module) {
